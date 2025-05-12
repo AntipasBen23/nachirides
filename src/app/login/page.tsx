@@ -2,18 +2,30 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
 export default function PhoneLoginPage() {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Log the phone number for demonstration
     console.log('Phone number submitted:', phoneNumber);
     
+    // Show loading state
+    setIsLoading(true);
+    
+    // For demo purposes, we'll simulate a brief loading period
+    // then navigate to the delivery page
+    setTimeout(() => {
+      // Navigate to the delivery page
+      router.push('/delivery');
+    }, 500); // Short delay to show loading state
   };
 
   return (
@@ -24,31 +36,50 @@ export default function PhoneLoginPage() {
         </div>
         
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-        <div className="w-full">
+          <div className="w-full">
             <PhoneInput
-                country={'us'}
-                value={phoneNumber}
-                onChange={(value) => setPhoneNumber(value)}
-                inputClass="w-full rounded-md border border-gray-300 px-3 py-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                containerClass="w-full" 
-                buttonClass="rounded-l-md border border-gray-300 border-r-0 bg-white"
-                dropdownClass="bg-white"
-                searchClass="bg-white"
-                enableSearch={true}
-                disableSearchIcon={false}
-                searchPlaceholder="Search country..."
-                containerStyle={{ width: '100%' }}  
-                inputStyle={{ width: '100%', 
-                              height: '50px'
-                }}      
+              country={'us'}
+              value={phoneNumber}
+              onChange={(value) => setPhoneNumber(value)}
+              inputClass="w-full rounded-md border border-gray-300 px-3 py-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              containerClass="w-full" 
+              buttonClass="rounded-l-md border border-gray-300 border-r-0 bg-white"
+              dropdownClass="bg-white"
+              searchClass="bg-white"
+              enableSearch={true}
+              disableSearchIcon={false}
+              searchPlaceholder="Search country..."
+              containerStyle={{ width: '100%' }}  
+              inputStyle={{ 
+                width: '100%', 
+                height: '50px'
+              }}
+              // Require at least 6 digits for any phone number
+              isValid={(value) => {
+                return value.length >= 6;
+              }}
             />
-        </div>
+          </div>
           
           <button
             type="submit"
-            className="w-full rounded-md bg-blue-600 px-4 py-3 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            disabled={isLoading || !phoneNumber || phoneNumber.length < 6}
+            className={`w-full rounded-md px-4 py-3 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 
+              ${isLoading || !phoneNumber || phoneNumber.length < 6 
+                ? 'bg-blue-400 cursor-not-allowed' 
+                : 'bg-blue-600 hover:bg-blue-700'}`}
           >
-            Continue
+            {isLoading ? (
+              <span className="flex items-center justify-center">
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+              </span>
+            ) : (
+              'Continue'
+            )}
           </button>
           
           <div className="relative flex items-center justify-center">
@@ -59,6 +90,7 @@ export default function PhoneLoginPage() {
           
           <button
             type="button"
+            onClick={() => router.push('/delivery')}
             className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
@@ -84,6 +116,7 @@ export default function PhoneLoginPage() {
           
           <button
             type="button"
+            onClick={() => router.push('/delivery')}
             className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             <svg className="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
