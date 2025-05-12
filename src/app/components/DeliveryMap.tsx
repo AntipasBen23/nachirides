@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 
 // Dynamically import the map components with no SSR
 const MapWithNoSSR = dynamic(

@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function FindingRiderPage() {
   const router = useRouter();
-  const [searchDuration, setSearchDuration] = useState<number>(0);
+  const [, setSearchDuration] = useState<number>(0);
   const [showCancelConfirm, setShowCancelConfirm] = useState<boolean>(false);
 
   // Simulate searching progress and auto-redirect after 11 seconds

@@ -1,11 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 export default function RiderAssignedPage() {
-  const router = useRouter();
+
   const [arrivalTime, setArrivalTime] = useState<number>(3);
 
   // Countdown timer for arrival time

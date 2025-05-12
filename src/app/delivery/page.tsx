@@ -7,7 +7,7 @@ import DeliveryMap from '../components/DeliveryMap';
 
 export default function DeliveryPage() {
   // Default location near Elugi Town as seen in the screenshot
-  const [userLocation, setUserLocation] = useState<[number, number]>([6.5227, 3.6218]);
+  const [userLocation] = useState<[number, number]>([6.5227, 3.6218]);
   const router = useRouter();
 
   // Function to open the routing page
