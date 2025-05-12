@@ -24,21 +24,25 @@ export default function PhoneLoginPage() {
         </div>
         
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-          <div className="phone-input-container">
+        <div className="w-full">
             <PhoneInput
-              country={'us'}
-              value={phoneNumber}
-              onChange={(value) => setPhoneNumber(value)}
-              inputClass="w-full rounded-md border border-gray-300 px-3 py-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              containerClass="w-full"
-              buttonClass="rounded-l-md border border-gray-300 border-r-0 bg-white"
-              dropdownClass="bg-white"
-              searchClass="bg-white"
-              enableSearch={true}
-              disableSearchIcon={false}
-              searchPlaceholder="Search country..."
+                country={'us'}
+                value={phoneNumber}
+                onChange={(value) => setPhoneNumber(value)}
+                inputClass="w-full rounded-md border border-gray-300 px-3 py-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                containerClass="w-full" 
+                buttonClass="rounded-l-md border border-gray-300 border-r-0 bg-white"
+                dropdownClass="bg-white"
+                searchClass="bg-white"
+                enableSearch={true}
+                disableSearchIcon={false}
+                searchPlaceholder="Search country..."
+                containerStyle={{ width: '100%' }}  
+                inputStyle={{ width: '100%', 
+                              height: '50px'
+                }}      
             />
-          </div>
+        </div>
           
           <button
             type="submit"
