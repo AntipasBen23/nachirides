@@ -2,11 +2,18 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import DeliveryMap from '../components/DeliveryMap';
 
 export default function DeliveryPage() {
   // Default location near Elugi Town as seen in the screenshot
   const [userLocation, setUserLocation] = useState<[number, number]>([6.5227, 3.6218]);
+  const router = useRouter();
+
+  // Function to open the routing page
+  const openRoutingPage = () => {
+    router.push('/routing');
+  };
 
   return (
     <div className="flex flex-col h-screen bg-white">
@@ -50,9 +57,12 @@ export default function DeliveryPage() {
           </div>
         </div>
         
-        {/* Search Input */}
+        {/* Search Input - Updated to navigate to routing page */}
         <div className="mt-4 relative">
-          <div className="flex items-center bg-gray-50 rounded-lg p-4 border border-gray-200">
+          <div 
+            className="flex items-center bg-gray-50 rounded-lg p-4 border border-gray-200 cursor-pointer"
+            onClick={openRoutingPage}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -72,11 +82,7 @@ export default function DeliveryPage() {
                 d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
               />
             </svg>
-            <input
-              type="text"
-              placeholder="Where to?"
-              className="flex-grow bg-transparent outline-none text-gray-700"
-            />
+            <span className="text-gray-500">Where to?</span>
           </div>
         </div>
       </div>
