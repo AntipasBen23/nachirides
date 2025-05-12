@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import DeliveryMap from '../components/DeliveryMap';
 
 export default function DeliveryPage() {
-  // Default location near Elugi Town as seen in the screenshot
+  
   const [userLocation] = useState<[number, number]>([6.5227, 3.6218]);
   const router = useRouter();
 

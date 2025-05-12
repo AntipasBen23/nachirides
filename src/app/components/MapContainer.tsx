@@ -5,9 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-// Fix for Leaflet icon issues in Next.js
 const fixLeafletIcon = () => {
-  // Use a TypeScript-safe approach to configure default icons
   L.Icon.Default.mergeOptions({
     iconRetinaUrl: '/images/marker-icon-2x.png',
     iconUrl: '/images/marker-icon.png',
@@ -28,15 +26,12 @@ interface MapContainerProps {
 export default function MapContainerComponent({ userLocation }: MapContainerProps) {
   const [motorcycles, setMotorcycles] = useState<MotorcycleLocation[]>([]);
   
-  // Fix Leaflet icons
   useEffect(() => {
-    // Handle Leaflet icon setup in browser environment only
     if (typeof window !== 'undefined') {
       fixLeafletIcon();
     }
   }, []);
 
-  // Generate random motorcycle locations
   useEffect(() => {
     const randomMotorcycles: MotorcycleLocation[] = [];
     for (let i = 0; i < 5; i++) {
@@ -49,7 +44,7 @@ export default function MapContainerComponent({ userLocation }: MapContainerProp
     setMotorcycles(randomMotorcycles);
   }, [userLocation]);
 
-  // Custom motorcycle icon
+
   const motorcycleIcon = new L.Icon({
     iconUrl: '/images/motorcycle-icon.png',
     iconSize: [32, 32],
@@ -57,7 +52,6 @@ export default function MapContainerComponent({ userLocation }: MapContainerProp
     popupAnchor: [0, -16],
   });
 
-  // Marker icon
   const blueMarkerIcon = new L.Icon({
     iconUrl: '/images/blue-marker.png',
     iconSize: [25, 41],
@@ -77,12 +71,10 @@ export default function MapContainerComponent({ userLocation }: MapContainerProp
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       
-      {/* User location marker */}
       <Marker position={userLocation} icon={blueMarkerIcon}>
         <Popup>Your location</Popup>
       </Marker>
       
-      {/* Motorcycle markers */}
       {motorcycles.map((bike) => (
         <Marker 
           key={bike.id}

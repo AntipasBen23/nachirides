@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 
-// Dynamically import the map components with no SSR
 const MapWithNoSSR = dynamic(
   () => import('./MapContainer'),
   { ssr: false }
