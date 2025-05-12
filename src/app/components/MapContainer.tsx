@@ -5,10 +5,9 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-// Need to fix Leaflet icon issues in Next.js
+// Fix for Leaflet icon issues in Next.js
 const fixLeafletIcon = () => {
-  // Fix default icon paths
-  delete L.Icon.Default.prototype._getIconUrl;
+  // Use a TypeScript-safe approach to configure default icons
   L.Icon.Default.mergeOptions({
     iconRetinaUrl: '/images/marker-icon-2x.png',
     iconUrl: '/images/marker-icon.png',
@@ -31,7 +30,10 @@ export default function MapContainerComponent({ userLocation }: MapContainerProp
   
   // Fix Leaflet icons
   useEffect(() => {
-    fixLeafletIcon();
+    // Handle Leaflet icon setup in browser environment only
+    if (typeof window !== 'undefined') {
+      fixLeafletIcon();
+    }
   }, []);
 
   // Generate random motorcycle locations
