@@ -9,15 +9,25 @@ export default function FindingRiderPage() {
   const [searchDuration, setSearchDuration] = useState<number>(0);
   const [showCancelConfirm, setShowCancelConfirm] = useState<boolean>(false);
 
-  // Simulate searching progress
+  // Simulate searching progress and auto-redirect after 11 seconds
   useEffect(() => {
     const timer = setInterval(() => {
-      setSearchDuration(prev => prev + 1);
+      setSearchDuration(prev => {
+        const newDuration = prev + 1;
+        
+        // After 11 seconds, redirect to rider-assigned page
+        if (newDuration === 11) {
+          clearInterval(timer);
+          router.push('/rider-assigned');
+        }
+        
+        return newDuration;
+      });
     }, 1000);
 
     // Cleanup timer on unmount
     return () => clearInterval(timer);
-  }, []);
+  }, [router]);
 
   const handleCancelSearch = () => {
     setShowCancelConfirm(true);

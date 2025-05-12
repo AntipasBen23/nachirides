@@ -1,19 +1,37 @@
-export default function Home() {
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+
+export default function SplashScreen() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Automatically navigate to onboarding screen after 4 seconds
+    const timer = setTimeout(() => {
+      router.push('/onboarding');
+    }, 4000);
+
+    // Cleanup timer if component unmounts
+    return () => clearTimeout(timer);
+  }, [router]);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4">
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold text-center">Welcome to Nachirides</h1>
-        <p className="mt-3 text-xl text-center">Get started by signing in</p>
-        
-        <div className="mt-8">
-          <a 
-            href="/login" 
-            className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-          >
-            Sign In
-          </a>
-        </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white">
+      {/* Logo in the center */}
+      <div className="relative w-48 h-48">
+        <Image
+          src="/images/nachi-logo.png"
+          alt="NachiRides"
+          layout="fill"
+          objectFit="contain"
+          priority
+        />
       </div>
-    </main>
+      
+      {/* Bottom indicator */}
+      <div className="absolute bottom-10 w-16 h-1 bg-gray-300 rounded-full"></div>
+    </div>
   );
 }
