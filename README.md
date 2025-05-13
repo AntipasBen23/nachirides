@@ -44,7 +44,7 @@ NachiRides is a modern, mobile-responsive web application for motorcycle deliver
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/nachirides.git
+git clone https://github.com/AntipasBen23/nachirides.git
 cd nachirides
 ```
 
